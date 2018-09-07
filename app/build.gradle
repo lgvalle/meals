@@ -46,7 +46,7 @@ dependencies {
 staticAnalysis {
     penalty {
         maxErrors = 0
-        maxWarnings = 0
+        maxWarnings = 4
     }
     checkstyle {}
     pmd {}
