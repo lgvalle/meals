@@ -1,8 +1,13 @@
+plugins {
+    id 'io.gitlab.arturbosch.detekt' version '1.0.0.RC8'
+    id "org.jlleitschuh.gradle.ktlint" version "5.0.0"
+    id 'com.novoda.static-analysis' version '0.6'
+}
+
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+
 
 android {
     compileSdkVersion 28
@@ -36,4 +41,23 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+staticAnalysis {
+    penalty {
+        maxErrors = 0
+        maxWarnings = 0
+    }
+    checkstyle {}
+    pmd {}
+    findbugs {}
+    detekt {
+        profile('main') {
+            input = "$projectDir/src/main/java"
+            config = rootProject.file('team-props/detekt-config.yml')
+            filters = '.*test.*,.*/resources/.*,.*/tmp/.*'
+            output = "$projectDir/build/reports/detekt"
+        }
+    }
+    lintOptions {}
 }
