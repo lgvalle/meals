@@ -25,6 +25,8 @@ jobs:
   test:
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: .
       - run:
           name: Run unit tests
           command: ./gradlew test
