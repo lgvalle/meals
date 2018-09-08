@@ -68,6 +68,6 @@ workflows:
   build_and_test:
     jobs:
       - checkout
-      - build:
+      - download_dependencies:
           requires:
             - checkout
