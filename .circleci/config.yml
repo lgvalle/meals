@@ -20,7 +20,7 @@ jobs:
           root: .
           paths:
             - .
-  download_dependencies:
+  build:
     <<: *defaults
     steps:
       - attach_workspace:
@@ -32,7 +32,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Download Dependencies
-          command: ./gradlew downloadDependencies
+          command: ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
@@ -68,6 +68,6 @@ workflows:
   build_and_test:
     jobs:
       - checkout
-      - download_dependencies:
+      - build:
           requires:
             - checkout
