@@ -7,11 +7,23 @@ defaults: &defaults
   environment:
     JVM_OPTS: -Xmx3200m
 
+attach_workspace: &attach_workspace
+  attach_workspace:
+    at: workspace
+
 jobs:
+  checkout:
+      - checkout:
+          path: workspace/repo
+      # Persist repo code
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - repo
   build:
     <<: *defaults
     steps:
-      - checkout
+      - *attach_workspace
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
@@ -23,28 +35,31 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       # Persist built app code
       - persist_to_workspace:
-          root: .
+          root: workspace
           paths:
-            - app/build
+            - repo/app/build
 
   test:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: .
+      - *attach_workspace
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Run unit tests
           command: ./gradlew test
+      # Collect JUnit test results
       - store_test_results:
-          path: app/build/test-results
+          path: workspace/repo/app/build/test-results
 
 workflows:
   version: 2
   build_and_test:
     jobs:
+      - checkout
       - build
+          requires:
+            - checkout
       - test:
           requires:
             - build
