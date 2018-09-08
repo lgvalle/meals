@@ -12,9 +12,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run:
-          name: "Show workspace"
-          command: ls -lh
       # Persist repo code
       - persist_to_workspace:
           root: .
@@ -25,27 +22,20 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: "Show workspace"
-          command: ls -lh
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+          key: gradle-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:
           paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
+          key: gradle-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Assemble
           command: ./gradlew assemble
-      - run:
-          name: "Show workspace"
-          command: ls -lh
-      - run:
-          name: "Show app"
-          command: ls -lh app
+
       # Persist built app code
       - persist_to_workspace:
           root: .
@@ -58,7 +48,7 @@ jobs:
       - attach_workspace:
           at: .
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+          key: gradle-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Run unit tests
           command: ./gradlew test
