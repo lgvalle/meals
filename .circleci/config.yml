@@ -12,6 +12,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+          path: repo
       # Persist repo code
       - persist_to_workspace:
           root: .
@@ -23,6 +24,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          name: "Show workspace"
+          command: ls -lh
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
