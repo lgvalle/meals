@@ -11,18 +11,18 @@ jobs:
   checkout:
     <<: *defaults
     steps:
-      - checkout:
-          path: workspace/repo
+      - checkout
       # Persist repo code
       - persist_to_workspace:
-          root: workspace
+          root: .
           paths:
-            - repo
+            - build
+            - app/build
   build:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: workspace
+          at: .
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
@@ -42,7 +42,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: workspace
+          at: .
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
@@ -50,7 +50,7 @@ jobs:
           command: ./gradlew test
       # Collect JUnit test results
       - store_test_results:
-          path: workspace/repo/app/build/test-results
+          path: app/build/test-results
 
 workflows:
   version: 2
@@ -60,6 +60,3 @@ workflows:
       - build:
           requires:
             - checkout
-      - test:
-          requires:
-            - build
