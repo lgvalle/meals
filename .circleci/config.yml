@@ -9,6 +9,8 @@ defaults: &defaults
 
 jobs:
   checkout:
+    <<: *defaults
+    steps:
       - checkout:
           path: workspace/repo
       # Persist repo code
