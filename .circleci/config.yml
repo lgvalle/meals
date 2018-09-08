@@ -20,8 +20,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - repo/build
-            - repo/app/build
+            - repo
   build:
     <<: *defaults
     steps:
@@ -34,7 +33,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Download Dependencies
-          command: ./gradlew androidDependencies
+          command: ./repo/gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
