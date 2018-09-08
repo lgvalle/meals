@@ -38,16 +38,24 @@ jobs:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache: *save_cache
+
+  assemble:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - restore_cache: *restore_cache
       - run:
           name: Assemble
           command: ./gradlew assemble
-
+      - store_artifacts:
+          path: app/build/outputs/
+          destination: artifacts
       # Persist built app code
       - persist_to_workspace:
           root: .
           paths:
             - app/build
-
   test:
     <<: *defaults
     steps:
@@ -68,6 +76,9 @@ workflows:
       - build:
           requires:
             - checkout
+      - assemble:
+          requires:
+            - build
       - test:
           requires:
             - build
