@@ -31,14 +31,6 @@ jobs:
       - store_test_results:
           path: app/build/test-results
 
-  static_analysis:
-      - run:
-          name: Run static analysis
-          command: ./gradlew evaluateViolations
-      - store_artifacts:
-          path: app/build/reports
-          destination: reports
-
 workflows:
   version: 2
   build_and_test:
