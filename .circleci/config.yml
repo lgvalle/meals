@@ -25,6 +25,8 @@ jobs:
       - restore_cache:
           key: gradle-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
+          command: ls -lh
+      - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:
