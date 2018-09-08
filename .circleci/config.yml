@@ -11,7 +11,7 @@ jobs:
   checkout:
     <<: *defaults
     steps:
-      - checkout
+      - checkout:
           path: repo
       # Persist repo code
       - persist_to_workspace:
