@@ -17,8 +17,8 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - build
-            - app/build
+            - repo/build
+            - repo/app/build
   build:
     <<: *defaults
     steps:
