@@ -38,6 +38,9 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
+          name: Assemble
+          command: ./gradlew assemble
+      - run:
           name: "Show workspace"
           command: ls -lh
       - run:
