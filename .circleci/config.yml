@@ -21,19 +21,24 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      # Persist built app code
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - app/build
 
   test:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: .
+          at: workspace
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Run unit tests
           command: ./gradlew test
       - store_test_results:
-          path: app/build/test-results
+          path: workspace/app/build/test-results
 
 workflows:
   version: 2
