@@ -7,10 +7,6 @@ defaults: &defaults
   environment:
     JVM_OPTS: -Xmx3200m
 
-attach_workspace: &attach_workspace
-  attach_workspace:
-    at: workspace
-
 jobs:
   checkout:
       - checkout:
@@ -23,7 +19,8 @@ jobs:
   build:
     <<: *defaults
     steps:
-      - attach_workspace: *attach_workspace
+      - attach_workspace:
+          at: workspace
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
@@ -42,7 +39,8 @@ jobs:
   test:
     <<: *defaults
     steps:
-      - attach_workspace: *attach_workspace
+      - attach_workspace:
+          at: workspace
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
