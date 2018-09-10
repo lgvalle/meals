@@ -46,6 +46,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          name: LS workspace
+          command: ls -lh
       - restore_cache: *restore_cache
       - run:
           name: Assemble
@@ -63,6 +66,12 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          name: LS workspace
+          command: ls -lh
+      - run:
+          name: LS workspace app/build
+          command: ls -lh app/build
       - restore_cache: *restore_cache
       - run:
           name: Run unit tests
