@@ -105,6 +105,8 @@ workflows:
   version: 2
   build_and_test:
     jobs:
+      - checkout
       - test_instrumented:
         requires:
           - checkout
+
