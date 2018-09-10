@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "453335775850",
+    "firebase_url": "https://meals-bad92.firebaseio.com",
+    "project_id": "meals-bad92",
+    "storage_bucket": "meals-bad92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453335775850:android:a6bb78e61a128684",
+        "android_client_info": {
+          "package_name": "xyz.lgvalle.meals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453335775850-loggjitjpkl7iqgb81hd8o5eup6jcfbv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.lgvalle.meals",
+            "certificate_hash": "1edfa1dd3e39f7c98fbae75d2f44fd144751e675"
+          }
+        },
+        {
+          "client_id": "453335775850-g3gpn4uuku13dginde9u31vu2l4b18m9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcaIZe-RxaSwGzdvm0wgAFNwg8nwrKv9Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453335775850-g3gpn4uuku13dginde9u31vu2l4b18m9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
