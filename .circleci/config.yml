@@ -107,6 +107,5 @@ workflows:
     jobs:
       - checkout
       - test_instrumented:
-        requires:
-          - checkout
-
+          requires:
+            - checkout
