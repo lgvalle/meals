@@ -116,16 +116,39 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-    - checkout
-    - build:
-        requires:
-        - checkout
-    - assemble:
-        requires:
-        - build
-    - test:
-        requires:
-        - assemble
-    - test_instrumented:
-        requires:
-        - assemble
+      - checkout
+      - build:
+          requires:
+          - checkout
+      - assemble:
+          requires:
+          - build
+      - test:
+          requires:
+          - assemble
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0,30 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - checkout
+      - build:
+          requires:
+          - checkout
+      - assemble:
+          requires:
+          - build
+      - test:
+          requires:
+          - assemble
+      - test_instrumented:
+          requires:
+          - assemble
+
+
+
