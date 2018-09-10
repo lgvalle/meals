@@ -25,7 +25,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      # Persist repo code
       - persist_to_workspace:
           root: .
           paths:
@@ -46,9 +45,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: LS workspace
-          command: ls -lh
       - restore_cache: *restore_cache
       - run:
           name: Assemble
@@ -56,7 +52,6 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/
           destination: artifacts
-      # Persist built app code
       - persist_to_workspace:
           root: .
           paths:
@@ -66,17 +61,10 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: LS workspace
-          command: ls -lh
-      - run:
-          name: LS workspace app/build
-          command: ls -lh app/build
       - restore_cache: *restore_cache
       - run:
           name: Run unit tests
           command: ./gradlew test
-      # Collect JUnit test results
       - store_test_results:
           path: app/build/test-results
   test_instrumented:
@@ -136,10 +124,10 @@ workflows:
           requires:
           - assemble
 
-  nightly:
+  hourly:
     triggers:
       - schedule:
-          cron: "0,30 * * * *"
+          cron: "0 * * * *"
           filters:
             branches:
               only:
