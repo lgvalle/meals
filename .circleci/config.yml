@@ -16,6 +16,7 @@ save_cache: &save_cache
     - ~/.gradle/wrapper
     - ~/.android/build-cache
     - /opt/android/sdk/build-tools
+    - /opt/android/sdk/platforms
   key: gradle-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
 jobs:
@@ -72,7 +73,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-        at: .
+          at: .
       - restore_cache: *restore_cache
       - run:
           name: Build debug APK and release APK
