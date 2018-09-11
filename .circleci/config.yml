@@ -52,6 +52,7 @@ jobs:
           root: .
           paths:
             - app/build
+            - build
 
   assembleDebugAndroidTest:
     <<: *defaults
@@ -68,6 +69,7 @@ jobs:
           root: .
           paths:
             - app/build
+            - build
   test:
     <<: *defaults
     steps:
