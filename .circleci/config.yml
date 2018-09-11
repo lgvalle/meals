@@ -30,6 +30,10 @@ jobs:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache: *save_cache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   assemble:
     <<: *defaults
