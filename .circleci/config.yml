@@ -68,11 +68,6 @@ jobs:
       - attach_workspace: *attach_workspace
       - restore_cache: *restore_cache
       - run:
-          name: Build debug APK and release APK
-          command: |
-            ./gradlew :app:assembleDebug
-            ./gradlew :app:assembleDebugAndroidTest
-      - run:
           name: Store Google Service Account
           command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
       - run:
@@ -114,8 +109,11 @@ workflows:
       - test:
           requires:
           - assemble
+      - test_instrumented:
+          requires:
+          - assemble
 
-  hourly:
+  nightly:
     triggers:
       - schedule:
           cron: "0 2 * * *"
