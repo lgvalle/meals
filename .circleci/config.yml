@@ -35,7 +35,10 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: .
+          at: ~/meals
+      - run:
+          name: LS workspace
+          command: ls -lh .
       - restore_cache: *restore_cache
       - run:
           name: Assemble
@@ -51,7 +54,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: .
+          at: ~/meals
       - restore_cache: *restore_cache
       - run:
           name: Run unit tests
@@ -62,7 +65,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: .
+          at: ~/meals
       - restore_cache: *restore_cache
       - run:
           name: Build debug APK and release APK
