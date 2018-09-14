@@ -124,28 +124,5 @@ workflows:
           requires:
           - assemble
 
-  hourly:
-    triggers:
-      - schedule:
-          cron: "0 2 * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - checkout
-      - build:
-          requires:
-          - checkout
-      - assemble:
-          requires:
-          - build
-      - test:
-          requires:
-          - assemble
-      - test_instrumented:
-          requires:
-          - assemble
-
 
 
